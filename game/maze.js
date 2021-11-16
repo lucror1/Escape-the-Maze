@@ -46,7 +46,7 @@ async function main() {
 //  - corners - return the corners of the player for collision testing //
 /////////////////////////////////////////////////////////////////////////
 class Player {
-    constructor(x=0, y=0, canId="maze", width=50, height=50, speed=5) {
+    constructor(x=0, y=0, spriteId="player", canId="maze", width=64, height=128, speed=5) {
         // Position
         this.x = x;
         this.y = y;
@@ -65,6 +65,9 @@ class Player {
         this.maxX = screenWidth;
         this.maxY = ctx.canvas.height - 10;
         
+        // Player sprite
+        this.sprite = document.getElementById(spriteId);
+
         // Canvas id
         this.canId = canId;
 
@@ -75,7 +78,8 @@ class Player {
     // Draw the player to the screen
     draw() {
         let ctx = document.getElementById("maze").getContext("2d");
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        //ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
 
     update() {        
