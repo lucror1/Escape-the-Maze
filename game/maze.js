@@ -8,8 +8,8 @@ let frameRate = 60;
 let sleepTime = 1/frameRate * 1000;
 
 // Window size
-let screenWidth = 500;
-let screenHeight = 500;
+let screenWidth = 600;
+let screenHeight = 600;
 
 let gameRunning = true;
 
@@ -63,7 +63,7 @@ class Player {
         // Max position
         let ctx = document.getElementById(canId).getContext("2d");
         this.maxX = screenWidth;
-        this.maxY = ctx.canvas.height - 10;
+        this.maxY = ctx.canvas.height;
         
         // Player sprite
         this.sprite = document.getElementById(spriteId);
@@ -94,8 +94,14 @@ class Player {
             this.vy *= Math.SQRT1_2;
         }
 
-        this.x = mod(this.x + this.vx * this.speed, this.maxX);
-        this.y = mod(this.y + this.vy * this.speed, this.maxY);
+        // Allow screen wrapping
+        //this.x = mod(this.x + this.vx * this.speed, this.maxX);
+        //this.y = mod(this.y + this.vy * this.speed, this.maxY);
+
+        // Solid walls
+        // https://stackoverflow.com/a/11409944 for clamping
+        this.x = Math.min(Math.max(this.x + this.vx * this.speed, 0), this.maxX - this.width);
+        this.y = Math.min(Math.max(this.y + this.vy * this.speed, 0), this.maxY - this.height);
     }
 
     corners() {
