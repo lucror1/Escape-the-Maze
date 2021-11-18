@@ -13,6 +13,92 @@ let screenHeight = 600;
 
 let gameRunning = true;
 
+//Separate functions for drawings
+function drawUpHall()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(250, 500);
+    pen.lineTo(250, 400);
+    pen.stroke();
+    pen.moveTo(350, 500);
+    pen.lineTo(350, 400);
+    pen.stroke();
+}
+function drawUpSeal()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(250, 400);
+    pen.lineTo(350, 400);
+    pen.stroke();
+}
+function drawDownHall()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(250, 200);
+    pen.lineTo(250, 100);
+    pen.stroke();
+    pen.moveTo(350, 200);
+    pen.lineTo(350, 100);
+    pen.stroke();
+}
+function drawDownSeal()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(250, 200);
+    pen.lineTo(350, 200);
+    pen.stroke();
+}
+function drawLeftHall()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(100, 350);
+    pen.lineTo(200, 350);
+    pen.stroke();
+    pen.moveTo(100, 250);
+    pen.lineTo(200, 250);
+    pen.stroke();
+}
+function drawLeftSeal()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(200, 250);
+    pen.lineTo(200, 350);
+    pen.stroke();
+}
+function drawRightHall()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(400, 350);
+    pen.lineTo(500, 350);
+    pen.stroke();
+    pen.moveTo(400, 250);
+    pen.lineTo(500, 250);
+    pen.stroke();
+}
+function drawRightSeal()
+{
+    let c = document.getElementById("canvas");
+    let pen = c.getContext("2d");
+    pen.beginPath();
+    pen.moveTo(400, 250);
+    pen.lineTo(400, 350);
+    pen.stroke();
+}
+
 async function main() {
     // Init canvas size
     resetCanvasSize();
