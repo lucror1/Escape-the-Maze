@@ -4,7 +4,8 @@ window.addEventListener("load", main);
 
 function main() {
     let manager = new LevelManager();
-    console.log(manager.globalX, manager.globalY);
+    manager.draw();
+    //console.log(manager.globalX, manager.globalY);
 }
 
 class LevelManager {
@@ -12,6 +13,9 @@ class LevelManager {
         // Init globalX and globalY to null
         this.globalX = null;
         this.globalY = null;
+
+        // Init maze
+        this.maze = new Maze();
 
         // Search for globalX and globalY cookie
         for (let cookie of document.cookie.split(";")) {
@@ -30,6 +34,10 @@ class LevelManager {
         if (this.globalY == null) {
             this.globalY = 0;
         }
+    }
+
+    draw() {
+        this.maze.draw(this.globalX, this.globalY);
     }
 
     // Move the global position by 1 in a single direction
@@ -92,6 +100,9 @@ class Maze {
                         `;
         // The maze as a 2D array
         this.maze = this.parseMazeStr(this.mazeStr);
+
+        // ID of the maze canvas
+        this.mazeId = mazeId;
     }
 
     // Convert a maze string into an array

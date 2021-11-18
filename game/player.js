@@ -1,11 +1,5 @@
 /* jshint esversion: 8 */
 
-// TODO: Change the way clearing the screen works. Have each draw function
-//       be responsible for clearing where it was last frame if needed.
-//       That way the maze doesn't have to be redrawn every frame and the
-//       only region of the canvas that has to be cleared is the player's
-//       and (maybe) enemies.
-
 window.addEventListener("load", main);
 window.addEventListener("resize", resetCanvasSize);
 
@@ -52,11 +46,11 @@ async function main() {
 //  - corners - return the corners of the player for collision testing //
 /////////////////////////////////////////////////////////////////////////
 class Player {
-    constructor(x=0, y=0, spriteId="player", canId="maze", width=64, height=128, speed=5) {
+    constructor(x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=64, height=128, speed=5) {
         // Position
         this.x = x;
         this.y = y;
-        
+
         // Velocity
         this.vx = 0;
         this.vy = 0;
@@ -83,12 +77,17 @@ class Player {
 
     // Draw the player to the screen
     draw() {
+        // Get the context
         let ctx = document.getElementById("maze").getContext("2d");
+
+        // DEBUG: draw a rectangle around the player
         ctx.strokeRect(this.x, this.y, this.width, this.height);
+
+        // Draw the player
         ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
 
-    update() {        
+    update() {
         // Get x direction, -1 if left, 1 if right, 0 if neither or both
         this.vx = this.input.keyPressed("right") - this.input.keyPressed("left");
         // Get y direction, -1 if up, 1 if down, 0 if neither or both
