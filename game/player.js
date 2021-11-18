@@ -23,6 +23,11 @@ async function main() {
     // Init player
     let p = new Player(man);
 
+    // If debug cookie is set, activate debug features
+    if (document.cookie.includes("debug")) {
+        p.speed = 10;
+    }
+
     while (gameRunning) {
         clearScreen();
 
