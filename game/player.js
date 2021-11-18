@@ -17,14 +17,15 @@ async function main() {
     // Init canvas size
     resetCanvasSize();
 
-    // Init player
-    let p = new Player();
-    
     // Init level manager
     let man = new LevelManager();
 
+    // Init player
+    let p = new Player(man);
+
     while (gameRunning) {
         clearScreen();
+
         p.update();
         p.draw();
 
@@ -37,6 +38,7 @@ async function main() {
 /////////////////////////////////////////////////////////////////////////
 // The player's character                                              //
 // Properties:                                                         //
+//  - manager - a LevelManager so the player can transition screens    //
 //  - x - the x position of the player                                 //
 //  - y - the y position of the player                                 //
 //  - canId - the canvas the player should be drawn on                 //
@@ -49,7 +51,10 @@ async function main() {
 //  - corners - return the corners of the player for collision testing //
 /////////////////////////////////////////////////////////////////////////
 class Player {
-    constructor(x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=64, height=128, speed=5) {
+    constructor(manager, x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=64, height=128, speed=5) {
+        // LevelManager to trigger level transitions
+        this.man = manager;
+
         // Position
         this.x = x;
         this.y = y;
@@ -102,27 +107,40 @@ class Player {
             this.vy *= Math.SQRT1_2;
         }
 
-        // Allow screen wrapping
-        //this.x = mod(this.x + this.vx * this.speed, this.maxX);
-        //this.y = mod(this.y + this.vy * this.speed, this.maxY);
-
-        // Solid walls
-        // https://stackoverflow.com/a/11409944 for clamping
-        //this.x = Math.min(Math.max(this.x + this.vx * this.speed, 0), this.maxX - this.width);
-        //this.y = Math.min(Math.max(this.y + this.vy * this.speed, 0), this.maxY - this.height);
+        // Move player
         this.x += this.vx * this.speed;
         this.y += this.vy * this.speed;
+
+        // If at the edge, transition to next room if that room exists
+        // If it does, move the player to the entrance of the next room
+        // If it doesn't, prevent the player from moving off screen
         if (this.x > this.maxX - this.width) {
-            this.x = this.maxX - this.width;
+            if (this.man.moveGlobalPosition("right")) {
+                this.x = 10;
+            } else {
+                this.x = this.maxX - this.width;
+            }
         }
         if (this.y > this.maxY - this.height) {
-            this.y = this.maxY - this.height;
+            if (this.man.moveGlobalPosition("down")) {
+                this.y = 10;
+            } else {
+                this.y = this.maxY - this.height;
+            }
         }
         if (this.x < 0) {
-            this.x = 0;
+            if (this.man.moveGlobalPosition("left")) {
+                this.x = this.maxX - this.width - 10;
+            } else {
+                this.x = 0;
+            }
         }
         if (this.y < 0) {
-            this.y = 0;
+            if (this.man.moveGlobalPosition("up")) {
+                this.y = this.maxY - this.height - 10;
+            } else {
+                this.y = 0;
+            }
         }
     }
 
@@ -281,28 +299,43 @@ class LevelManager {
 
     // Move the global position by 1 in a single direction
     moveGlobalPosition(dir) {
-        // Change the global position based on dir
+        // Change the global position based on dir if possible
+        // A move is possible if it stays inside the maze bounds so the
+        // player can move into empty rooms until collision works
+        // Return if a move occured at all
         switch (dir) {
             case "up":
             case "UP":
             case "Up":
-                this.globalY--;
-                break;
+                if (this.globalY - 1 >= this.maze.minY) {
+                    this.globalY--;
+                    return true;
+                }
+                return false;
             case "down":
             case "DOWN":
             case "Down":
-                this.globalY++;
-                break;
+                if (this.globalY + 1 <= this.maze.maxY) {
+                    this.globalY++;
+                    return true;
+                }
+                return false;
             case "left":
             case "LEFT":
             case "Left":
-                this.globalX--;
-                break;
+                if (this.globalX - 1 >= this.maze.minX) {
+                    this.globalX--;
+                    return true;
+                }
+                return false;
             case "right":
             case "RIGHT":
             case "Right":
-                this.globalX++;
-                break;
+                if (this.globalX + 1 <= this.maze.maxX) {
+                    this.globalX++;
+                    return true;
+                }
+                return false;
         }
     }
 
@@ -342,6 +375,12 @@ class Maze {
 
         // ID of the maze canvas
         this.mazeId = mazeId;
+
+        // Min/max x and y of the maze
+        this.minX = 0;
+        this.maxX = this.maze[0].length;
+        this.minY = 0;
+        this.maxY = this.maze.length;
     }
 
     // Convert a maze string into an array
@@ -381,53 +420,56 @@ class Maze {
         // Get the context
         let ctx = document.getElementById(this.mazeId).getContext("2d");
 
+        // DEBUG: set font size for text rendering
+        ctx.font = "40px sans-serif";
+
         // Draw the correct room
         // TODO: replace this with actual draw calls
         switch (this.maze[y][x]) {
             case "-":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "|":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "<":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case ">":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "v":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "^":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "+":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "L":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "7":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "F":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "J":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "M":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "W":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "E":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
 			case "3":
-				
+				ctx.fillText(this.maze[y][x], 0, 30);
 				break;
         }
     }
