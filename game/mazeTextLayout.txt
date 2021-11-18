@@ -1,0 +1,74 @@
+Symbol Lookup
+
+Hallways
+- - left to right hallway
+| - top to bottom hallway
+
+Ex.
+    |
+--- |
+    |
+
+Dead ends
+> - only exit is left
+< - only exit is right
+v - only exit is up
+^ - only exit is down
+
+Ex.
+    ^
+<-> |
+    v
+
+Connector
++ - all connections
+
+Ex.
+ ^
+<+->
+ v
+
+Corners
+L - top and right connection
+7 - left and bottom connection
+F - right and bottom connection
+J - top and left connection
+
+Ex.
+F--7
+|  |
+L--J
+
+Three-ways
+M - all but top
+W - all but bottom
+E - all but left
+3 - all but right
+
+Ex.
+F----M
+E-7 <3
+L-W  v
+
+
+Example maze:
+<--M7<7
+ ^<+W-J
+ E-W-7
+ L> F3
+    |E>
+    vv
+
+Same maze drawn using Unicode characters (line represent path, not walls):
+╶──┬┐╶┐
+ ╷╶┼┴─┘
+ ├─┴─┐
+ └╴ ┌┤
+    │├╴
+    ╵╵
+
+- = ─	| = │	+ = ┼
+< = ╶	L = └	M = ┬
+> = ╴	7 = ┐	W = ┴
+v = ╵	F = ┌	E = ├
+^ = ╷	J = ┘	3 = ┤

@@ -78,3 +78,107 @@ class LevelManager {
         document.cookie = `globalY=${this.globalY}; SameSite=strict; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
     }
 }
+
+class Maze {
+    constructor(mazeId="maze") {
+        // The maze as a string, see mazeTextLayout.txt for an explanation
+        this.mazeStr = `
+                        <--M7<7
+                         ^<+W-J
+                         E-W-7
+                         L> F3
+                            |E>
+                            vv
+                        `;
+        // The maze as a 2D array
+        this.maze = this.parseMazeStr(this.mazeStr);
+    }
+
+    // Convert a maze string into an array
+    parseMazeStr(mazeStr) {
+        // Remove all excess whitespace
+        // Split into lines and remove empty first and last array
+        let maze = mazeStr.split("\n").slice(1);
+        maze.pop();
+        // Find the index of the first non-space character in each row
+        let leftEdge = maze[0].length;
+        for (let row of maze) {
+            let i = 0;
+            while (row[i] == " ") {
+                i++;
+            }
+            leftEdge = Math.min(leftEdge, i);
+        }
+        // Remove everything before the leftEdge and get the max length
+        let maxRowLen = 0;
+        for (let i = 0; i < maze.length; i++) {
+            maze[i] = maze[i].slice(leftEdge).split("");
+            maxRowLen = Math.max(maxRowLen, maze[i].length);
+        }
+
+        // Pad all rows to be equal length
+        for (let i = 0; i < maze.length; i++) {
+            while (maze[i].length < maxRowLen) {
+                maze[i].push("");
+            }
+        }
+
+        return maze;
+    }
+
+    // Draw the room at (x,y) in maze
+    draw(x, y) {
+        // Get the context
+        let ctx = document.getElementById(this.mazeId).getContext("2d");
+
+        // Draw the correct room
+        // TODO: replace this with actual draw calls
+        switch (this.maze[y][x]) {
+            case "-":
+				console.log("-");
+				break;
+			case "|":
+				console.log("|");
+				break;
+			case "<":
+				console.log("<");
+				break;
+			case ">":
+				console.log(">");
+				break;
+			case "v":
+				console.log("v");
+				break;
+			case "^":
+				console.log("^");
+				break;
+			case "+":
+				console.log("+");
+				break;
+			case "L":
+				console.log("L");
+				break;
+			case "7":
+				console.log("7");
+				break;
+			case "F":
+				console.log("F");
+				break;
+			case "J":
+				console.log("J");
+				break;
+			case "M":
+				console.log("M");
+				break;
+			case "W":
+				console.log("W");
+				break;
+			case "E":
+				console.log("E");
+				break;
+			case "3":
+				console.log("3");
+				break;
+        }
+    }
+}
