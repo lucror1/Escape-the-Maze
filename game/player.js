@@ -314,6 +314,7 @@ class LevelManager {
             case "Up":
                 if (this.globalY - 1 >= this.maze.minY) {
                     this.globalY--;
+                    this.writeGlobalPos();
                     return true;
                 }
                 return false;
@@ -322,6 +323,7 @@ class LevelManager {
             case "Down":
                 if (this.globalY + 1 <= this.maze.maxY) {
                     this.globalY++;
+                    this.writeGlobalPos();
                     return true;
                 }
                 return false;
@@ -330,6 +332,7 @@ class LevelManager {
             case "Left":
                 if (this.globalX - 1 >= this.maze.minX) {
                     this.globalX--;
+                    this.writeGlobalPos();
                     return true;
                 }
                 return false;
@@ -338,6 +341,7 @@ class LevelManager {
             case "Right":
                 if (this.globalX + 1 <= this.maze.maxX) {
                     this.globalX++;
+                    this.writeGlobalPos();
                     return true;
                 }
                 return false;
