@@ -1,5 +1,11 @@
 /* jshint esversion: 8 */
 
+// TODO: Change the way clearing the screen works. Have each draw function
+//       be responsible for clearing where it was last frame if needed.
+//       That way the maze doesn't have to be redrawn every frame and the
+//       only region of the canvas that has to be cleared is the player's
+//       and (maybe) enemies.
+
 window.addEventListener("load", main);
 window.addEventListener("resize", resetCanvasSize);
 
