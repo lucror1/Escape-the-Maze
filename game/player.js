@@ -78,7 +78,7 @@ class Player {
     // Draw the player to the screen
     draw() {
         let ctx = document.getElementById("maze").getContext("2d");
-        //ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
         ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }
 
@@ -100,8 +100,22 @@ class Player {
 
         // Solid walls
         // https://stackoverflow.com/a/11409944 for clamping
-        this.x = Math.min(Math.max(this.x + this.vx * this.speed, 0), this.maxX - this.width);
-        this.y = Math.min(Math.max(this.y + this.vy * this.speed, 0), this.maxY - this.height);
+        //this.x = Math.min(Math.max(this.x + this.vx * this.speed, 0), this.maxX - this.width);
+        //this.y = Math.min(Math.max(this.y + this.vy * this.speed, 0), this.maxY - this.height);
+        this.x += this.vx * this.speed;
+        this.y += this.vy * this.speed;
+        if (this.x > this.maxX - this.width) {
+            this.x = this.maxX - this.width;
+        }
+        if (this.y > this.maxY - this.height) {
+            this.y = this.maxY - this.height;
+        }
+        if (this.x < 0) {
+            this.x = 0;
+        }
+        if (this.y < 0) {
+            this.y = 0;
+        }
     }
 
     corners() {
