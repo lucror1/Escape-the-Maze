@@ -4,98 +4,179 @@ window.addEventListener("load", main);
 window.addEventListener("resize", resetCanvasSize);
 
 // Frame rate settings
-let frameRate = 60;
-let sleepTime = 1/frameRate * 1000;
+const frameRate = 60;
+const sleepTime = 1/frameRate * 1000;
 
 // Window size
-let screenWidth = 600;
-let screenHeight = 600;
+const screenWidth = 600;
+const screenHeight = 600;
+
+// Useful constants
+const halfScreenWidth = screenWidth / 2;
+const halfScreenHeight = screenHeight / 2;
 
 let gameRunning = true;
 
-//Separate functions for drawings
-function drawUpHall()
-{
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+// Separate functions for drawings
+// Using 0.5 b/c https://stackoverflow.com/a/8696641
+// Half of the hall size, vertical is top/bottom, horizontal left/right
+const halfVerticalHallSize = 50;
+
+const halfHorizontalHallSize = 75;
+
+// The spacing between the walls and the edge of the screen
+const verticalWallPadding = 100;
+const horizontalWallPadding = 100;
+
+function drawBase(pen) {
     pen.beginPath();
-    pen.moveTo(250, 500);
-    pen.lineTo(250, 400);
-    pen.stroke();
-    pen.moveTo(350, 500);
-    pen.lineTo(350, 400);
+
+    // Top left
+    pen.moveTo(horizontalWallPadding + 0.5, halfScreenHeight - halfHorizontalHallSize + 0.5);
+    pen.lineTo(horizontalWallPadding + 0.5, verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth - halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
+
+    // Top right
+    pen.moveTo(halfScreenWidth + halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
+    pen.lineTo(screenWidth - horizontalWallPadding + 0.5, verticalWallPadding + 0.5);
+    pen.lineTo(screenWidth - horizontalWallPadding + 0.5, halfScreenHeight - halfHorizontalHallSize + 0.5);
+
+    // Bottom right
+    pen.moveTo(screenWidth - horizontalWallPadding + 0.5, halfScreenHeight + halfHorizontalHallSize + 0.5);
+    pen.lineTo(screenWidth - horizontalWallPadding + 0.5, screenHeight - verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
+
+    // Bottom left
+    pen.moveTo(halfScreenWidth - halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
+    pen.lineTo(horizontalWallPadding + 0.5, screenHeight - verticalWallPadding + 0.5);
+    pen.lineTo(horizontalWallPadding + 0.5, halfScreenHeight + halfHorizontalHallSize + 0.5);
+
     pen.stroke();
 }
-function drawUpSeal()
+function drawUpHall(pen)
 {
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    
     pen.beginPath();
-    pen.moveTo(250, 400);
-    pen.lineTo(350, 400);
+
+    //pen.moveTo(250, 200);
+    //pen.lineTo(250, 100);
+    pen.moveTo(halfScreenWidth - halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth - halfVerticalHallSize + 0.5, 0);
+
+    //pen.moveTo(350, 200);
+    //pen.lineTo(350, 100);
+    pen.moveTo(halfScreenWidth + halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, 0);
+
     pen.stroke();
 }
-function drawDownHall()
+function drawUpSeal(pen)
 {
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    
     pen.beginPath();
-    pen.moveTo(250, 200);
-    pen.lineTo(250, 100);
-    pen.stroke();
-    pen.moveTo(350, 200);
-    pen.lineTo(350, 100);
+    
+    pen.moveTo(halfScreenWidth - halfVerticalHallSize, verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
+
     pen.stroke();
 }
-function drawDownSeal()
+function drawDownHall(pen)
 {
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    
     pen.beginPath();
-    pen.moveTo(250, 200);
-    pen.lineTo(350, 200);
+    
+    //pen.moveTo(250, 500);
+    //pen.lineTo(250, 400);
+    pen.moveTo(halfScreenWidth - halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth - halfVerticalHallSize + 0.5, screenHeight);
+
+    //pen.moveTo(350, 500);
+    //pen.lineTo(350, 400);
+    pen.moveTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight);
+    
     pen.stroke();
 }
-function drawLeftHall()
+function drawDownSeal(pen)
 {
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    
     pen.beginPath();
-    pen.moveTo(100, 350);
-    pen.lineTo(200, 350);
-    pen.stroke();
-    pen.moveTo(100, 250);
-    pen.lineTo(200, 250);
+
+    pen.moveTo(halfScreenWidth - halfVerticalHallSize, screenHeight - verticalWallPadding + 0.5);
+    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
+    
     pen.stroke();
 }
-function drawLeftSeal()
+function drawLeftHall(pen)
 {
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    
     pen.beginPath();
-    pen.moveTo(200, 250);
-    pen.lineTo(200, 350);
+
+    //pen.moveTo(100, 250);
+    //pen.lineTo(200, 250);
+    pen.moveTo(0,  halfScreenHeight - halfHorizontalHallSize + 0.5);
+    pen.lineTo(horizontalWallPadding, halfScreenHeight - halfHorizontalHallSize + 0.5);
+
+    //pen.moveTo(100, 350);
+    //pen.lineTo(200, 350);
+    pen.moveTo(0,  halfScreenHeight + halfHorizontalHallSize + 0.5);
+    pen.lineTo(horizontalWallPadding, halfScreenHeight + halfHorizontalHallSize + 0.5);
+    
     pen.stroke();
 }
-function drawRightHall()
+function drawLeftSeal(pen)
 {
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+
     pen.beginPath();
-    pen.moveTo(400, 350);
-    pen.lineTo(500, 350);
-    pen.stroke();
-    pen.moveTo(400, 250);
-    pen.lineTo(500, 250);
+
+    pen.moveTo(horizontalWallPadding + 0.5, halfScreenHeight - halfHorizontalHallSize + 0.5);
+    pen.lineTo(horizontalWallPadding + 0.5, halfScreenHeight + halfHorizontalHallSize + 0.5);
+    
     pen.stroke();
 }
-function drawRightSeal()
+function drawRightHall(pen)
 {
-    let c = document.getElementById("canvas");
-    let pen = c.getContext("2d");
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    
     pen.beginPath();
-    pen.moveTo(400, 250);
-    pen.lineTo(400, 350);
+    
+    //pen.moveTo(400, 250);
+    //pen.lineTo(500, 250);
+    pen.moveTo(screenWidth - horizontalWallPadding,  halfScreenHeight - halfHorizontalHallSize + 0.5);
+    pen.lineTo(screenWidth, halfScreenHeight - halfHorizontalHallSize + 0.5);
+    
+    //pen.moveTo(400, 350);
+    //pen.lineTo(500, 350);
+    pen.moveTo(screenWidth - horizontalWallPadding,  halfScreenHeight + halfHorizontalHallSize + 0.5);
+    pen.lineTo(screenWidth, halfScreenHeight + halfHorizontalHallSize + 0.5);
+    
+    pen.stroke();
+}
+function drawRightSeal(pen)
+{
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    
+    pen.beginPath();
+
+    //pen.moveTo(screenWidth - 100 + 0.5, 250);
+    //pen.lineTo(screenWidth - 100 + 0.5, 350);
+    pen.moveTo(screenWidth - horizontalWallPadding + 0.5,  halfScreenHeight - halfHorizontalHallSize + 0.5);
+    pen.lineTo(screenWidth - horizontalWallPadding + 0.5,  halfScreenHeight + halfHorizontalHallSize + 0.5);
+    
     pen.stroke();
 }
 
@@ -142,7 +223,7 @@ async function main() {
 //  - corners - return the corners of the player for collision testing //
 /////////////////////////////////////////////////////////////////////////
 class Player {
-    constructor(manager, x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=64, height=128, speed=5) {
+    constructor(manager, x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=50, height=100, speed=5) {
         // LevelManager to trigger level transitions
         this.man = manager;
 
@@ -179,11 +260,11 @@ class Player {
         // Get the context
         let ctx = document.getElementById("maze").getContext("2d");
 
-        // DEBUG: draw a rectangle around the player
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
-
         // Draw the player
         ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
+
+        // DEBUG: draw a rectangle around the player
+        ctx.strokeRect(this.x - 0.5, this.y - 0.5, this.width, this.height);
     }
 
     update() {
@@ -515,56 +596,118 @@ class Maze {
         // Get the context
         let ctx = document.getElementById(this.mazeId).getContext("2d");
 
+        // Draw the base room
+        drawBase(ctx);
+
         // DEBUG: set font size for text rendering
         ctx.font = "40px sans-serif";
 
         // Draw the correct room
-        // TODO: replace this with actual draw calls
         switch (this.maze[y][x]) {
             case "-":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpSeal(ctx);
+                drawRightHall(ctx);
+                drawDownSeal(ctx);
 				break;
 			case "|":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftSeal(ctx);
+                drawUpHall(ctx);
+                drawRightSeal(ctx);
+                drawDownHall(ctx);
 				break;
 			case "<":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftSeal(ctx);
+                drawUpSeal(ctx);
+                drawRightHall(ctx);
+                drawDownSeal(ctx);
 				break;
 			case ">":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpSeal(ctx);
+                drawRightSeal(ctx);
+                drawDownSeal(ctx);
 				break;
 			case "v":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftSeal(ctx);
+                drawUpHall(ctx);
+                drawRightSeal(ctx);
+                drawDownSeal(ctx);
 				break;
 			case "^":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftSeal(ctx);
+                drawUpSeal(ctx);
+                drawRightSeal(ctx);
+                drawDownHall(ctx);
 				break;
 			case "+":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpHall(ctx);
+                drawRightHall(ctx);
+                drawDownHall(ctx);
 				break;
 			case "L":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftSeal(ctx);
+                drawUpHall(ctx);
+                drawRightHall(ctx);
+                drawDownSeal(ctx);
 				break;
 			case "7":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpSeal(ctx);
+                drawRightSeal(ctx);
+                drawDownHall(ctx);
 				break;
 			case "F":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftSeal(ctx);
+                drawUpSeal(ctx);
+                drawRightHall(ctx);
+                drawDownHall(ctx);
 				break;
 			case "J":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpHall(ctx);
+                drawRightSeal(ctx);
+                drawDownSeal(ctx);
 				break;
 			case "M":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpSeal(ctx);
+                drawRightHall(ctx);
+                drawDownHall(ctx);
 				break;
 			case "W":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpHall(ctx);
+                drawRightHall(ctx);
+                drawDownSeal(ctx);
 				break;
 			case "E":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftSeal(ctx);
+                drawUpHall(ctx);
+                drawRightHall(ctx);
+                drawDownHall(ctx);
 				break;
 			case "3":
 				ctx.fillText(this.maze[y][x], 0, 30);
+                drawLeftHall(ctx);
+                drawUpHall(ctx);
+                drawRightSeal(ctx);
+                drawDownHall(ctx);
 				break;
         }
     }
@@ -574,11 +717,6 @@ class Maze {
 // https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=votes#tab-top
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// Custom mod function to handle negatives
-function mod(n, m) {
-    return ((n % m) + m) % m;
 }
 
 // Clear the canvas screen
