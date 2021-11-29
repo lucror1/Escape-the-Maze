@@ -21,7 +21,7 @@ let gameRunning = true;
 // Using 0.5 b/c https://stackoverflow.com/a/8696641
 // Half of the hall size, vertical is top/bottom, horizontal left/right
 const halfVerticalHallSize = 50;
-const halfHorizontalHallSize = 50;
+const halfHorizontalHallSize = 75;
 
 // The spacing between the walls and the edge of the screen
 const verticalWallPadding = 100;
@@ -256,8 +256,9 @@ class Player {
 
     // Draw the player to the screen
     draw() {
-        // Get the context
+        // Get the context and don't smooth
         let ctx = document.getElementById("maze").getContext("2d");
+        ctx.imageSmoothingEnabled = false;
 
         // Draw the player
         ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
@@ -553,9 +554,9 @@ class Maze {
 
         // Min/max x and y of the maze
         this.minX = 0;
-        this.maxX = this.maze[0].length;
+        this.maxX = this.maze[0].length - 1;
         this.minY = 0;
-        this.maxY = this.maze.length;
+        this.maxY = this.maze.length - 1;
     }
 
     // Convert a maze string into an array
