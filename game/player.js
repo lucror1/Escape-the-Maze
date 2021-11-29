@@ -222,7 +222,7 @@ async function main() {
 //  - corners - return the corners of the player for collision testing //
 /////////////////////////////////////////////////////////////////////////
 class Player {
-    constructor(manager, x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=64, height=128, speed=5) {
+    constructor(manager, x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=50, height=100, speed=5) {
         // LevelManager to trigger level transitions
         this.man = manager;
 
