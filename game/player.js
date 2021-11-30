@@ -27,157 +27,177 @@ const halfHorizontalHallSize = 75;
 const verticalWallPadding = 100;
 const horizontalWallPadding = 100;
 
-function drawBase(pen) {
-    pen.beginPath();
-
-    // Top left
-    pen.moveTo(horizontalWallPadding + 0.5, halfScreenHeight - halfHorizontalHallSize + 0.5);
-    pen.lineTo(horizontalWallPadding + 0.5, verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth - halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
-
-    // Top right
-    pen.moveTo(halfScreenWidth + halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
-    pen.lineTo(screenWidth - horizontalWallPadding + 0.5, verticalWallPadding + 0.5);
-    pen.lineTo(screenWidth - horizontalWallPadding + 0.5, halfScreenHeight - halfHorizontalHallSize + 0.5);
-
-    // Bottom right
-    pen.moveTo(screenWidth - horizontalWallPadding + 0.5, halfScreenHeight + halfHorizontalHallSize + 0.5);
-    pen.lineTo(screenWidth - horizontalWallPadding + 0.5, screenHeight - verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
-
-    // Bottom left
-    pen.moveTo(halfScreenWidth - halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
-    pen.lineTo(horizontalWallPadding + 0.5, screenHeight - verticalWallPadding + 0.5);
-    pen.lineTo(horizontalWallPadding + 0.5, halfScreenHeight + halfHorizontalHallSize + 0.5);
-
-    pen.stroke();
-}
-function drawUpHall(pen)
-{
+//Start Inputted Code Nov. 30 by Hudson
+function drawBase(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-    
     pen.beginPath();
+    
+    //Upper Left edge
+    pen.moveTo(100.5, 225.5);
+    pen.lineTo(100.5, 100.5);
+    pen.stroke();
+    pen.lineTo(225.5, 100.5);
+    pen.stroke();
+    //Upper Right edge
+    pen.moveTo(375.5, 100.5);
+    pen.lineTo(500.5, 100.5);
+    pen.stroke();
+    pen.lineTo(500.5, 225.5);
+    pen.stroke();
+    //Lower Right edge
+    pen.moveTo(500.5, 375.5);
+    pen.lineTo(500.5, 500.5);
+    pen.stroke();
+    pen.lineTo(375.5, 500.5);
+    pen.stroke();
+    //Lower Left edge
+    pen.moveTo(225.5, 500.5);
+    pen.lineTo(100.5, 500.5);
+    pen.stroke();
+    pen.lineTo(100.5, 375.5);
+    pen.stroke();
 
-    //pen.moveTo(250, 200);
-    //pen.lineTo(250, 100);
-    pen.moveTo(halfScreenWidth - halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth - halfVerticalHallSize + 0.5, 0);
+    //Rectangle Backgrounds
 
-    //pen.moveTo(350, 200);
-    //pen.lineTo(350, 100);
-    pen.moveTo(halfScreenWidth + halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, 0);
-
+    //Upper Left Corner Background
+    pen.fillRect(0,0,100,100);
+    pen.stroke();
+    //Upper Right Corner Background
+    pen.fillRect(500,0,100,100);
+    pen.stroke();
+    //Lower Right Corner Background
+    pen.fillRect(500,500,100,100);
+    pen.stroke();
+    //Lower Left Corner Background
+    pen.fillRect(0,500,100,100);
     pen.stroke();
 }
-function drawUpSeal(pen)
-{
+
+function drawUpHall(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-    
     pen.beginPath();
-    
-    pen.moveTo(halfScreenWidth - halfVerticalHallSize, verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, verticalWallPadding + 0.5);
 
+    pen.moveTo(225.5,0.5);
+    pen.lineTo(225.5,100.5);
+    pen.stroke();
+    pen.moveTo(375.5,0.5);
+    pen.lineTo(375.5,100.5);
+    pen.stroke();
+
+    pen.fillRect(100,0,125,100);
+    pen.stroke();
+    pen.fillRect(375,0,125,100);
     pen.stroke();
 }
-function drawDownHall(pen)
-{
+
+function drawUpSeal(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-    
     pen.beginPath();
-    
-    //pen.moveTo(250, 500);
-    //pen.lineTo(250, 400);
-    pen.moveTo(halfScreenWidth - halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth - halfVerticalHallSize + 0.5, screenHeight);
 
-    //pen.moveTo(350, 500);
-    //pen.lineTo(350, 400);
-    pen.moveTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight);
+    pen.moveTo(225.5,100.5);
+    pen.lineTo(375.5,100.5);
+    pen.stroke();
     
+    pen.fillRect(100,0,400,100);
     pen.stroke();
 }
-function drawDownSeal(pen)
-{
+
+function drawDownHall(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-    
     pen.beginPath();
 
-    pen.moveTo(halfScreenWidth - halfVerticalHallSize, screenHeight - verticalWallPadding + 0.5);
-    pen.lineTo(halfScreenWidth + halfVerticalHallSize + 0.5, screenHeight - verticalWallPadding + 0.5);
-    
+    pen.moveTo(225.5,500.5);
+    pen.lineTo(225.5,600.5);
+    pen.stroke();
+    pen.moveTo(375.5,500.5);
+    pen.lineTo(375.5,600.5);
+    pen.stroke();
+
+    pen.fillRect(100,500,125,100);
+    pen.stroke();
+    pen.fillRect(375,500,125,100);
     pen.stroke();
 }
-function drawLeftHall(pen)
-{
+
+function drawDownSeal(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-    
     pen.beginPath();
 
-    //pen.moveTo(100, 250);
-    //pen.lineTo(200, 250);
-    pen.moveTo(0,  halfScreenHeight - halfHorizontalHallSize + 0.5);
-    pen.lineTo(horizontalWallPadding, halfScreenHeight - halfHorizontalHallSize + 0.5);
+    pen.moveTo(225.5,500.5);
+    pen.lineTo(375.5,500.5);
+    pen.stroke();
 
-    //pen.moveTo(100, 350);
-    //pen.lineTo(200, 350);
-    pen.moveTo(0,  halfScreenHeight + halfHorizontalHallSize + 0.5);
-    pen.lineTo(horizontalWallPadding, halfScreenHeight + halfHorizontalHallSize + 0.5);
-    
+    pen.fillRect(100,500,400,100);
     pen.stroke();
 }
-function drawLeftSeal(pen)
-{
+
+function drawLeftHall(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-
     pen.beginPath();
 
-    pen.moveTo(horizontalWallPadding + 0.5, halfScreenHeight - halfHorizontalHallSize + 0.5);
-    pen.lineTo(horizontalWallPadding + 0.5, halfScreenHeight + halfHorizontalHallSize + 0.5);
-    
+    pen.moveTo(0.5,225.5);
+    pen.lineTo(100.5,225.5);
+    pen.stroke();
+    pen.moveTo(0.5,375.5);
+    pen.lineTo(100.5,375.5);
+    pen.stroke();
+
+    pen.fillRect(0,100,100,125);
+    pen.stroke();
+    pen.fillRect(0,375,100,125);
     pen.stroke();
 }
-function drawRightHall(pen)
-{
+
+function drawLeftSeal(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-    
     pen.beginPath();
     
-    //pen.moveTo(400, 250);
-    //pen.lineTo(500, 250);
-    pen.moveTo(screenWidth - horizontalWallPadding,  halfScreenHeight - halfHorizontalHallSize + 0.5);
-    pen.lineTo(screenWidth, halfScreenHeight - halfHorizontalHallSize + 0.5);
-    
-    //pen.moveTo(400, 350);
-    //pen.lineTo(500, 350);
-    pen.moveTo(screenWidth - horizontalWallPadding,  halfScreenHeight + halfHorizontalHallSize + 0.5);
-    pen.lineTo(screenWidth, halfScreenHeight + halfHorizontalHallSize + 0.5);
-    
+    pen.moveTo(100.5,225.5);
+    pen.lineTo(100.5,375.5);
+    pen.stroke();
+
+    pen.fillRect(0,100,100,400);
     pen.stroke();
 }
-function drawRightSeal(pen)
-{
+
+function drawRightHall(pen){
     //let c = document.getElementById("canvas");
     //let pen = c.getContext("2d");
-    
     pen.beginPath();
 
-    //pen.moveTo(screenWidth - 100 + 0.5, 250);
-    //pen.lineTo(screenWidth - 100 + 0.5, 350);
-    pen.moveTo(screenWidth - horizontalWallPadding + 0.5,  halfScreenHeight - halfHorizontalHallSize + 0.5);
-    pen.lineTo(screenWidth - horizontalWallPadding + 0.5,  halfScreenHeight + halfHorizontalHallSize + 0.5);
-    
+    pen.moveTo(500.5,225.5);
+    pen.lineTo(600.5,225.5);
+    pen.stroke();
+    pen.moveTo(500.5,375.5);
+    pen.lineTo(600.5,375.5);
+    pen.stroke();
+
+    pen.fillRect(500,100,100,125);
+    pen.stroke();
+    pen.fillRect(500,375,100,125);
     pen.stroke();
 }
+
+function drawRightSeal(pen){
+    //let c = document.getElementById("canvas");
+    //let pen = c.getContext("2d");
+    pen.beginPath();
+
+    pen.moveTo(500.5,225.5);
+    pen.lineTo(500.5,375.5);
+    pen.stroke();
+
+    pen.fillRect(500,100,100,400);
+    pen.stroke();
+}
+//End Inputted Code Nov. 30 by Hudson
 
 async function main() {
     // Init canvas size
