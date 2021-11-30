@@ -599,115 +599,156 @@ class Maze {
         // Draw the base room
         drawBase(ctx);
 
-        // DEBUG: set font size for text rendering
+        // DEBUG: draw room symbol
         ctx.font = "40px sans-serif";
+        ctx.fillText(this.maze[y][x], 0, 30);
 
         // Draw the correct room
         switch (this.maze[y][x]) {
             case "-":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpSeal(ctx);
                 drawRightHall(ctx);
                 drawDownSeal(ctx);
 				break;
 			case "|":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftSeal(ctx);
                 drawUpHall(ctx);
                 drawRightSeal(ctx);
                 drawDownHall(ctx);
 				break;
 			case "<":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftSeal(ctx);
                 drawUpSeal(ctx);
                 drawRightHall(ctx);
                 drawDownSeal(ctx);
 				break;
 			case ">":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpSeal(ctx);
                 drawRightSeal(ctx);
                 drawDownSeal(ctx);
 				break;
 			case "v":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftSeal(ctx);
                 drawUpHall(ctx);
                 drawRightSeal(ctx);
                 drawDownSeal(ctx);
 				break;
 			case "^":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftSeal(ctx);
                 drawUpSeal(ctx);
                 drawRightSeal(ctx);
                 drawDownHall(ctx);
 				break;
 			case "+":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpHall(ctx);
                 drawRightHall(ctx);
                 drawDownHall(ctx);
 				break;
 			case "L":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftSeal(ctx);
                 drawUpHall(ctx);
                 drawRightHall(ctx);
                 drawDownSeal(ctx);
 				break;
 			case "7":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpSeal(ctx);
                 drawRightSeal(ctx);
                 drawDownHall(ctx);
 				break;
 			case "F":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftSeal(ctx);
                 drawUpSeal(ctx);
                 drawRightHall(ctx);
                 drawDownHall(ctx);
 				break;
 			case "J":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpHall(ctx);
                 drawRightSeal(ctx);
                 drawDownSeal(ctx);
 				break;
 			case "M":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpSeal(ctx);
                 drawRightHall(ctx);
                 drawDownHall(ctx);
 				break;
 			case "W":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpHall(ctx);
                 drawRightHall(ctx);
                 drawDownSeal(ctx);
 				break;
 			case "E":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftSeal(ctx);
                 drawUpHall(ctx);
                 drawRightHall(ctx);
                 drawDownHall(ctx);
 				break;
 			case "3":
-				ctx.fillText(this.maze[y][x], 0, 30);
                 drawLeftHall(ctx);
                 drawUpHall(ctx);
                 drawRightSeal(ctx);
                 drawDownHall(ctx);
+				break;
+        }
+    }
+
+    // Generate drawing/collision rectangles for a room
+    genRects(x, y) {
+        // Default corner rects
+        let rects = [];
+
+        // Switch on maze symbol to generate new rects
+        switch (this.maze[y][x]) {
+            case "-":
+                
+				break;
+			case "|":
+                
+				break;
+			case "<":
+                
+				break;
+			case ">":
+                
+				break;
+			case "v":
+                
+				break;
+			case "^":
+                
+				break;
+			case "+":
+                
+				break;
+			case "L":
+                
+				break;
+			case "7":
+                
+				break;
+			case "F":
+                
+				break;
+			case "J":
+                
+				break;
+			case "M":
+                
+				break;
+			case "W":
+                
+				break;
+			case "E":
+                
+				break;
+			case "3":
+                
 				break;
         }
     }
