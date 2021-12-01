@@ -51,12 +51,6 @@ async function main() {
 
         man.draw();
 
-        // DEBUG: draw room symbol
-        let ctx = document.getElementById("maze").getContext("2d");
-        ctx.font = "40px sans-serif";
-        ctx.fillStyle = "white";
-        ctx.fillText(man.maze.maze[man.globalY][man.globalX], 0, 30);
-
         await sleep(sleepTime);
     }
 }
@@ -798,7 +792,10 @@ class Rect {
         let collision = false
 
         for (let c of corn) {
-            collision ||= c[0] > this.x && c[0] < this.x + this.w && c[1] > this.y && c[1] < this.y + this.h;
+            collision ||= c[0] >= this.x &&
+                          c[0] <= this.x + this.w &&
+                          c[1] >= this.y &&
+                          c[1] <= this.y + this.h;
         }
 
         return collision;
