@@ -412,13 +412,17 @@ class Maze {
     constructor(mazeId="maze") {
         // The maze as a string, see mazeTextLayout.txt for an explanation
         this.mazeStr = `
-                        <--M7<7
-                         ^<+W-J
-                         E-W-7
-                         L> F3
-                            |E>
-                            vv
-                        `;
+                        F-M>FM---7
+                        |<W-JL-7^|
+                        |F---7F3LJ
+                        |vF7^LJLM7
+                        EMJ|E7F-J|
+                        |vFJ|LJF7v
+                        L7L7L--JE7
+                        ^E7L-7^FJv
+                        |||F7||L-7
+                        LJLJvvL--W
+        `
         // The maze as a 2D array
         this.maze = this.parseMazeStr(this.mazeStr);
 
