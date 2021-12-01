@@ -371,7 +371,12 @@ class LevelManager {
             case "right":
             case "RIGHT":
             case "Right":
-                if (this.globalX + 1 <= this.maze.maxX) {
+                if (this.globalX == this.maze.maxX && this.globalY == this.maze.maxY) {
+                    this.deleteGlobalPos();
+                    window.location.href = "abtMaze.html";
+                    return false;
+                }
+                else if (this.globalX + 1 <= this.maze.maxX) {
                     this.globalX++;
                     this.room = new Room(this.maze.maze[this.globalY][this.globalX]);
                     this.writeGlobalPos();
