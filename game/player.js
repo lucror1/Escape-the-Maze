@@ -27,177 +27,6 @@ const halfHorizontalHallSize = 75;
 const verticalWallPadding = 100;
 const horizontalWallPadding = 100;
 
-//Start Inputted Code Nov. 30 by Hudson
-function drawBase(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-    
-    //Upper Left edge
-    pen.moveTo(100.5, 225.5);
-    pen.lineTo(100.5, 100.5);
-    pen.stroke();
-    pen.lineTo(225.5, 100.5);
-    pen.stroke();
-    //Upper Right edge
-    pen.moveTo(375.5, 100.5);
-    pen.lineTo(500.5, 100.5);
-    pen.stroke();
-    pen.lineTo(500.5, 225.5);
-    pen.stroke();
-    //Lower Right edge
-    pen.moveTo(500.5, 375.5);
-    pen.lineTo(500.5, 500.5);
-    pen.stroke();
-    pen.lineTo(375.5, 500.5);
-    pen.stroke();
-    //Lower Left edge
-    pen.moveTo(225.5, 500.5);
-    pen.lineTo(100.5, 500.5);
-    pen.stroke();
-    pen.lineTo(100.5, 375.5);
-    pen.stroke();
-
-    //Rectangle Backgrounds
-
-    //Upper Left Corner Background
-    pen.fillRect(0,0,100,100);
-    pen.stroke();
-    //Upper Right Corner Background
-    pen.fillRect(500,0,100,100);
-    pen.stroke();
-    //Lower Right Corner Background
-    pen.fillRect(500,500,100,100);
-    pen.stroke();
-    //Lower Left Corner Background
-    pen.fillRect(0,500,100,100);
-    pen.stroke();
-}
-
-function drawUpHall(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-
-    pen.moveTo(225.5,0.5);
-    pen.lineTo(225.5,100.5);
-    pen.stroke();
-    pen.moveTo(375.5,0.5);
-    pen.lineTo(375.5,100.5);
-    pen.stroke();
-
-    pen.fillRect(100,0,125,100);
-    pen.stroke();
-    pen.fillRect(375,0,125,100);
-    pen.stroke();
-}
-
-function drawUpSeal(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-
-    pen.moveTo(225.5,100.5);
-    pen.lineTo(375.5,100.5);
-    pen.stroke();
-    
-    pen.fillRect(100,0,400,100);
-    pen.stroke();
-}
-
-function drawDownHall(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-
-    pen.moveTo(225.5,500.5);
-    pen.lineTo(225.5,600.5);
-    pen.stroke();
-    pen.moveTo(375.5,500.5);
-    pen.lineTo(375.5,600.5);
-    pen.stroke();
-
-    pen.fillRect(100,500,125,100);
-    pen.stroke();
-    pen.fillRect(375,500,125,100);
-    pen.stroke();
-}
-
-function drawDownSeal(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-
-    pen.moveTo(225.5,500.5);
-    pen.lineTo(375.5,500.5);
-    pen.stroke();
-
-    pen.fillRect(100,500,400,100);
-    pen.stroke();
-}
-
-function drawLeftHall(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-
-    pen.moveTo(0.5,225.5);
-    pen.lineTo(100.5,225.5);
-    pen.stroke();
-    pen.moveTo(0.5,375.5);
-    pen.lineTo(100.5,375.5);
-    pen.stroke();
-
-    pen.fillRect(0,100,100,125);
-    pen.stroke();
-    pen.fillRect(0,375,100,125);
-    pen.stroke();
-}
-
-function drawLeftSeal(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-    
-    pen.moveTo(100.5,225.5);
-    pen.lineTo(100.5,375.5);
-    pen.stroke();
-
-    pen.fillRect(0,100,100,400);
-    pen.stroke();
-}
-
-function drawRightHall(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-
-    pen.moveTo(500.5,225.5);
-    pen.lineTo(600.5,225.5);
-    pen.stroke();
-    pen.moveTo(500.5,375.5);
-    pen.lineTo(600.5,375.5);
-    pen.stroke();
-
-    pen.fillRect(500,100,100,125);
-    pen.stroke();
-    pen.fillRect(500,375,100,125);
-    pen.stroke();
-}
-
-function drawRightSeal(pen){
-    //let c = document.getElementById("canvas");
-    //let pen = c.getContext("2d");
-    pen.beginPath();
-
-    pen.moveTo(500.5,225.5);
-    pen.lineTo(500.5,375.5);
-    pen.stroke();
-
-    pen.fillRect(500,100,100,400);
-    pen.stroke();
-}
-//End Inputted Code Nov. 30 by Hudson
 
 async function main() {
     // Init canvas size
@@ -211,7 +40,7 @@ async function main() {
 
     // If debug cookie is set, activate debug features
     if (document.cookie.includes("debug")) {
-        p.speed = 10;
+        p.speed = 20;
     }
 
     while (gameRunning) {
@@ -221,6 +50,12 @@ async function main() {
         p.draw();
 
         man.draw();
+
+        // DEBUG: draw room symbol
+        let ctx = document.getElementById("maze").getContext("2d");
+        ctx.font = "40px sans-serif";
+        ctx.fillStyle = "white";
+        ctx.fillText(man.maze.maze[man.globalY][man.globalX], 0, 30);
 
         await sleep(sleepTime);
     }
@@ -242,7 +77,7 @@ async function main() {
 //  - corners - return the corners of the player for collision testing //
 /////////////////////////////////////////////////////////////////////////
 class Player {
-    constructor(manager, x=screenWidth/2-32, y=screenHeight/2-64, spriteId="player", canId="maze", width=50, height=100, speed=5) {
+    constructor(manager, x=screenWidth/2-25, y=screenHeight/2-50, spriteId="player", canId="maze", width=50, height=100, speed=10) {
         // LevelManager to trigger level transitions
         this.man = manager;
 
@@ -282,9 +117,6 @@ class Player {
 
         // Draw the player
         ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
-
-        // DEBUG: draw a rectangle around the player
-        ctx.strokeRect(this.x - 0.5, this.y - 0.5, this.width, this.height);
     }
 
     update() {
@@ -299,9 +131,22 @@ class Player {
             this.vy *= Math.SQRT1_2;
         }
 
-        // Move player
+        // Move player only in the x direction
+        // This prevents a wall above/below from block left/right movement
+        // The collision is kinda scuffed, so this is the best solution
         this.x += this.vx * this.speed;
+
+        // If the player has intersected anything, move them back slowly
+        // Reverse Mario 64 quarter steps
+        while (this.man.room.collide(this)) {
+            this.x -= this.vx * this.speed * 0.25;
+        }
+
+        // Move player only in the y direction, see previous two comments
         this.y += this.vy * this.speed;
+        while (this.man.room.collide(this)) {
+            this.y -= this.vy * this.speed * 0.25;
+        }
 
         // If at the edge, transition to next room if that room exists
         // If it does, move the player to the entrance of the next room
@@ -483,10 +328,13 @@ class LevelManager {
         if (this.globalY == null) {
             this.globalY = 0;
         }
+
+        // Get the current room
+        this.room = new Room(this.maze.maze[this.globalY][this.globalX]);
     }
 
     draw() {
-        this.maze.draw(this.globalX, this.globalY);
+        this.room.draw();
     }
 
     // Move the global position by 1 in a single direction
@@ -501,6 +349,7 @@ class LevelManager {
             case "Up":
                 if (this.globalY - 1 >= this.maze.minY) {
                     this.globalY--;
+                    this.room = new Room(this.maze.maze[this.globalY][this.globalX]);
                     this.writeGlobalPos();
                     return true;
                 }
@@ -510,6 +359,7 @@ class LevelManager {
             case "Down":
                 if (this.globalY + 1 <= this.maze.maxY) {
                     this.globalY++;
+                    this.room = new Room(this.maze.maze[this.globalY][this.globalX]);
                     this.writeGlobalPos();
                     return true;
                 }
@@ -519,6 +369,7 @@ class LevelManager {
             case "Left":
                 if (this.globalX - 1 >= this.maze.minX) {
                     this.globalX--;
+                    this.room = new Room(this.maze.maze[this.globalY][this.globalX]);
                     this.writeGlobalPos();
                     return true;
                 }
@@ -528,6 +379,7 @@ class LevelManager {
             case "Right":
                 if (this.globalX + 1 <= this.maze.maxX) {
                     this.globalX++;
+                    this.room = new Room(this.maze.maze[this.globalY][this.globalX]);
                     this.writeGlobalPos();
                     return true;
                 }
@@ -539,6 +391,7 @@ class LevelManager {
     setGlobalPos(x, y) {
         this.globalX = x;
         this.globalY = y;
+        this.room = new Room(this.maze.maze[this.globalY][this.globalX]);
     }
 
     // Write globalX and globalY to a cookie
@@ -621,7 +474,9 @@ class Maze {
 
         // DEBUG: draw room symbol
         ctx.font = "40px sans-serif";
+        ctx.fillStyle = "white";
         ctx.fillText(this.maze[y][x], 0, 30);
+        ctx.fillStyle = "black";
 
         // Draw the correct room
         switch (this.maze[y][x]) {
@@ -717,60 +572,232 @@ class Maze {
 				break;
         }
     }
+}
 
-    // Generate drawing/collision rectangles for a room
-    genRects(x, y) {
-        // Default corner rects
-        let rects = [];
+class Room {
+    constructor(mazeSymbol, mazeId="maze") {
+        // Init properties
+        this.mazeSymbol = mazeSymbol;
+        this.mazeId = mazeId;
 
-        // Switch on maze symbol to generate new rects
-        switch (this.maze[y][x]) {
+        // Rectangles for drawing and collision
+        this.rects = Room.baseRects();
+
+        // Switch to determine usable rectangles
+        switch (mazeSymbol) {
             case "-":
-                
+                this.rects = this.rects.concat(Room.upSealRects());
+                this.rects = this.rects.concat(Room.downSealRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case "|":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftSealRects());
+                this.rects = this.rects.concat(Room.rightSealRects());
 				break;
 			case "<":
-                
+                this.rects = this.rects.concat(Room.upSealRects());
+                this.rects = this.rects.concat(Room.downSealRects());
+                this.rects = this.rects.concat(Room.leftSealRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case ">":
-                
+                this.rects = this.rects.concat(Room.upSealRects());
+                this.rects = this.rects.concat(Room.downSealRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightSealRects());
 				break;
 			case "v":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downSealRects());
+                this.rects = this.rects.concat(Room.leftSealRects());
+                this.rects = this.rects.concat(Room.rightSealRects());
 				break;
 			case "^":
-                
+                this.rects = this.rects.concat(Room.upSealRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftSealRects());
+                this.rects = this.rects.concat(Room.rightSealRects());
 				break;
 			case "+":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case "L":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downSealRects());
+                this.rects = this.rects.concat(Room.leftSealRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case "7":
-                
+                this.rects = this.rects.concat(Room.upSealRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightSealRects());
 				break;
 			case "F":
-                
+                this.rects = this.rects.concat(Room.upSealRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftSealRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case "J":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downSealRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightSealRects());
 				break;
 			case "M":
-                
+                this.rects = this.rects.concat(Room.upSealRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case "W":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downSealRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case "E":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftSealRects());
+                this.rects = this.rects.concat(Room.rightHallRects());
 				break;
 			case "3":
-                
+                this.rects = this.rects.concat(Room.upHallRects());
+                this.rects = this.rects.concat(Room.downHallRects());
+                this.rects = this.rects.concat(Room.leftHallRects());
+                this.rects = this.rects.concat(Room.rightSealRects());
 				break;
         }
+    }
+
+    // Draw the current room
+    draw() {
+        let ctx = document.getElementById(this.mazeId).getContext("2d");
+        
+        for (let rect of this.rects) {
+            rect.draw();
+        }
+    }
+
+    // Check if an object collides with any rectangles in the room
+    // object must have .corners() method
+    collide(object) {
+        for (let r of this.rects) {
+            if (r.collide(object)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static baseRects() {
+        return [
+            new Rect(0, 0, 100, 100),
+            new Rect(500, 0, 100, 100),
+            new Rect(500, 500, 100, 100),
+            new Rect(0, 500, 100, 100)
+        ];
+    }
+
+    static upHallRects() {
+        return [
+            new Rect(100, 0, 125, 100),
+            new Rect(375, 0, 125, 100)
+        ];
+    }
+
+    static upSealRects() {
+        return [
+            new Rect(100, 0, 400, 100)
+        ];
+    }
+
+    static downHallRects() {
+        return [
+            new Rect(100, 500, 125, 100),
+            new Rect(375, 500, 125, 100)
+        ];
+    }
+
+    static downSealRects() {
+        return [
+            new Rect(100, 500, 400, 100)
+        ];
+    }
+
+    static leftHallRects() {
+        return [
+            new Rect(0, 100, 100, 125),
+            new Rect(0, 375, 100, 125)
+        ];
+    }
+
+    static leftSealRects() {
+        return [
+            new Rect(0, 100, 100, 400)
+        ];
+    }
+
+    static rightHallRects() {
+        return [
+            new Rect(500, 100, 100, 125),
+            new Rect(500, 375, 100, 125)
+        ];
+    }
+
+    static rightSealRects() {
+        return [
+            new Rect(500, 100, 100, 400)
+        ];
+    }
+}
+
+class Rect {
+    constructor(x, y, w, h, col="black", canId="maze") {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.col = col;
+        this.canId = canId;
+    }
+
+    // Draw the rectangle on canId
+    draw() {
+        let ctx = document.getElementById(this.canId).getContext("2d");
+        ctx.fillStyle = this.col;
+        ctx.fillRect(this.x, this.y, this.w, this.h);
+    }
+
+    // Return a list of the objects corners
+    corners() {
+        return [
+            [this.x, this.y],
+            [this.x + this.w, this.y],
+            [this.x, this.y + this.h],
+            [this.x + this.w, this.y + this.h]
+        ];
+    }
+
+    // Calculate if an object has collided
+    // object must have a corners method (see above)
+    collide(object) {
+        let corn = object.corners();
+        let collision = false
+
+        for (let c of corn) {
+            collision ||= c[0] > this.x && c[0] < this.x + this.w && c[1] > this.y && c[1] < this.y + this.h;
+        }
+
+        return collision;
     }
 }
 
