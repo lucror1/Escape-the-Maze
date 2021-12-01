@@ -36,3 +36,8 @@ div{
 canvas{
     display:inline-block;
 }
+
+#maze {
+    display: block;
+    margin: auto;
+}
