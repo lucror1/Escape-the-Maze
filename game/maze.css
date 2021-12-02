@@ -33,9 +33,7 @@ div{
    padding:2em 1em;
     
 }
-canvas{
-    display:inline-block;
-}
+
 
 #maze {
     display: block;
