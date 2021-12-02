@@ -1,7 +1,6 @@
 /* jshint esversion: 8 */
 
 window.addEventListener("load", main);
-window.addEventListener("resize", resetCanvasSize);
 
 // Frame rate settings
 const frameRate = 60;
@@ -30,7 +29,7 @@ const horizontalWallPadding = 100;
 
 async function main() {
     // Init canvas size
-    resetCanvasSize();
+    initCanvasSize();
 
     // Init level manager
     let man = new LevelManager();
@@ -373,7 +372,7 @@ class LevelManager {
             case "Right":
                 if (this.globalX == this.maze.maxX && this.globalY == this.maze.maxY) {
                     this.deleteGlobalPos();
-                    window.location.href = "abtMaze.html";
+                    window.location.href = "youWin.html";
                     return false;
                 }
                 else if (this.globalX + 1 <= this.maze.maxX) {
@@ -819,7 +818,7 @@ function clearScreen(id="maze") {
 }
 
 // Set canvas size to be correct
-function resetCanvasSize() {
+function initCanvasSize() {
     let ctx = document.getElementById("maze").getContext("2d");
     ctx.canvas.width = screenWidth;
     ctx.canvas.height = screenHeight;
