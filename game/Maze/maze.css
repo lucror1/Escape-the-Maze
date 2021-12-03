@@ -1,0 +1,41 @@
+body {
+    background-color: rgb(119, 116, 116);
+}
+
+canvas {
+    background-color: white;
+    border: 1px solid black;
+    display: block;
+    margin: auto;
+}
+h1{
+    color:red;
+    text-align: center;
+    font-family: 'Shadows Into Light', cursive;
+}
+
+button{
+  
+    padding:1em;
+    display:inline-block;
+    background-color: seashell;
+    align-content: center;
+    margin:auto;
+    width:200px;
+    
+}
+a{
+    color:red;
+    text-decoration: none;
+}
+div{
+   text-align: center; 
+   padding:2em 1em;
+    
+}
+
+
+#maze {
+    display: block;
+    margin: auto;
+}
