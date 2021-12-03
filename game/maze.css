@@ -44,6 +44,11 @@ div {
     
 }
 
+audio {
+    display: block;
+    margin: auto;
+}
+
 .center {
     margin: auto;
     text-align: center;
