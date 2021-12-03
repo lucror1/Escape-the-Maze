@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="abtMaze.css">
-    <script src="abtMaze.js"></script>
+    <!-- <script src="abtMaze.js"></script> -->
 </head>
 <body>
   
@@ -16,12 +16,22 @@
 <p>We originaly </p>
 <p>images can go here</p>
 <h2></a>How we Built the maze</h2>
-<p>The user navigates through the maze where each room is a separate HTML page generated and loaded by JavaScript.
-  The game listens for entering an area defined as an ‘exit,’ upon entering this area, a button will appear that can take them to a new room. 
-  Therein lies the maze. The goal is to find 5 objective items to unlock the exit and escape. 
-  Along the way, the player will encounter deadly enemies that can only be escaped from, not killed. The user uses the arrow keys or WASD to move the character through the maze. 
-  The maze is room-by-room with anywhere from 1 to 4 entry points and entry points being able to load the player character into another room.</p> 
-<p>images of code can go here</p>
+<p>
+  The user navigates through the maze where each room is a separate HTML
+  page generated and loaded by JavaScript. The game listens for entering
+  an area defined as an ‘exit,’ upon entering this area, a button will
+  appear that can take them to a new room. Therein lies the maze. The goal
+  is to find 5 objective items to unlock the exit and escape. Along the
+  way, the player will encounter deadly enemies that can only be escaped
+  from, not killed. The user uses the arrow keys or WASD to move the
+  character through the maze. The maze is room-by-room with anywhere from
+  1 to 4 entry points and entry points being able to load the player
+  character into another room.
+</p> 
+<p class="center">
+  <img src="programFlow.svg" alt="A flow diagram of the code's classes and functions." id="flow">
+
+</p>
 <h3>errors we encountered:</h3>
 
 
@@ -29,6 +39,24 @@
 
 <h2>Errors encounters and how we fixed them</h2>
 
+<p>
+  In earlier versions of the game, rooms were drawn with lines. A
+  missing "ctx.beginPath()" call resulted in the lines being drawn
+  increasing exponentially, dragging down frame rates and resulting in
+  old rooms being drawn on top of new rooms.
+</p>
+<p>
+  After collision was implemented, the player could clip through the
+  bottom or top walls if there was a hallway by aligning themselves
+  exactly with the edge of the wall. This was fixed by switching the
+  inequalities from "&gt;" and "&lt;" to "&gt;=" and "&lt;=".
+</p>
+<p>
+  The level manager did not properly check if the player was attempting to
+  move outside of the maze. This resulted in the player walking off screen
+  and the level manager saving the now-invalid permission, then
+  immediately crashing and permanently softlocking the game.
+</p>
 
 
 <h2>How we could expand it</h2>

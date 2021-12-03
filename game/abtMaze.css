@@ -32,3 +32,13 @@ table, th, td {
       text-shadow: black;
 
   }
+
+.center {
+    margin: auto;
+    text-align: center;
+}
+
+#flow {
+    width: 750px;
+    
+}
