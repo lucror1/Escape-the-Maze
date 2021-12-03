@@ -8,13 +8,22 @@ canvas {
     display: block;
     margin: auto;
 }
-h1{
+h1 {
     color:red;
     text-align: center;
     font-family: 'Shadows Into Light', cursive;
 }
 
-button{
+h2 {
+    color:white;
+    text-shadow: black;
+}
+
+mark {
+    background-color: lightgrey;
+}
+
+button {
   
     padding:1em;
     display:inline-block;
@@ -24,18 +33,27 @@ button{
     width:200px;
     
 }
-a{
+a {
     color:red;
     text-decoration: none;
 }
-div{
+
+div {
    text-align: center; 
    padding:2em 1em;
     
 }
 
+.center {
+    margin: auto;
+    text-align: center;
+}
 
 #maze {
     display: block;
     margin: auto;
+}
+
+#flow {
+    width: 750px;
 }
