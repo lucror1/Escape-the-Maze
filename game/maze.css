@@ -1,5 +1,6 @@
 body {
     background-color: rgb(119, 116, 116);
+    margin: 0px;
 }
 
 canvas {
@@ -54,6 +55,11 @@ audio {
     text-align: center;
 }
 
+.middle {
+    vertical-align: middle;
+    margin-top: 10em;
+}
+
 #maze {
     display: block;
     margin: auto;
@@ -61,4 +67,19 @@ audio {
 
 #flow {
     width: 750px;
+}
+
+#nav {
+    margin: 10px auto 5px;
+    text-align: center;
+}
+
+#nav > a {
+    padding: 0px 25px 0px;
+    background-color: lightgrey;
+}
+
+#victoryText {
+    /* https://stackoverflow.com/a/21335048 */
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }

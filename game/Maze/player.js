@@ -222,10 +222,14 @@ class Input {
             case "ArrowUp":
             case "w":
                 this.state |= 0b1000;
+                // Prevent arrow keys from scrolling the screen
+                // https://stackoverflow.com/a/8916697
+                evt.preventDefault();
                 break;
             case "ArrowDown":
             case "s":
                 this.state |= 0b0100;
+                evt.preventDefault();
                 break;
             case "ArrowLeft":
             case "a":
@@ -236,11 +240,6 @@ class Input {
                 this.state |= 0b0001;
                 break;
         }
-
-        // Prevent arrow keys from scrolling the screen
-        // (also convientently makes cheating slightly more difficult)
-        // https://stackoverflow.com/a/8916697
-        evt.preventDefault();
     }
 
     // Unset the correct bit in state when a key is released
@@ -253,10 +252,12 @@ class Input {
             case "ArrowUp":
             case "w":
                 this.state &= 0b0111;
+                evt.preventDefault();
                 break;
             case "ArrowDown":
             case "s":
                 this.state &= 0b1011;
+                evt.preventDefault();
                 break;
             case "ArrowLeft":
             case "a":
@@ -267,11 +268,6 @@ class Input {
                 this.state &= 0b1110;
                 break;
         }
-
-        // Prevent arrow keys from scrolling the screen
-        // (also convientently makes cheating slightly more difficult)
-        // https://stackoverflow.com/a/8916697
-        evt.preventDefault();
     }
 
     // Determine if a given key is pressed
