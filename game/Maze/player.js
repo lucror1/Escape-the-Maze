@@ -226,10 +226,12 @@ class Input {
             case "ArrowLeft":
             case "a":
                 this.state |= 0b0010;
+                evt.preventDefault();
                 break;
             case "ArrowRight":
             case "d":
                 this.state |= 0b0001;
+                evt.preventDefault();
                 break;
         }
     }
