@@ -10,22 +10,7 @@ const sleepTime = 1/frameRate * 1000;
 const screenWidth = 600;
 const screenHeight = 600;
 
-// Useful constants
-const halfScreenWidth = screenWidth / 2;
-const halfScreenHeight = screenHeight / 2;
-
 let gameRunning = true;
-
-// Separate functions for drawings
-// Using 0.5 b/c https://stackoverflow.com/a/8696641
-// Half of the hall size, vertical is top/bottom, horizontal left/right
-const halfVerticalHallSize = 50;
-const halfHorizontalHallSize = 75;
-
-// The spacing between the walls and the edge of the screen
-const verticalWallPadding = 100;
-const horizontalWallPadding = 100;
-
 
 async function main() {
     // Init canvas size
@@ -208,6 +193,9 @@ class Input {
 
         // Init input listeners
         // https://stackoverflow.com/a/43727582
+        // Adding event listeners normally makes "this" not be the input,
+        // making it impossible for the setKey and unsetKey functions to
+        // properly set the state.
         document.addEventListener("keydown", this.setKey.bind(this));
         document.addEventListener("keyup", this.unsetKey.bind(this));
     }
@@ -224,6 +212,10 @@ class Input {
                 this.state |= 0b1000;
                 // Prevent arrow keys from scrolling the screen
                 // https://stackoverflow.com/a/8916697
+                // This instructs the browser to ignore the defualt action
+                // that the given key (in this case up or down) would
+                // normally cause to happen. This prevents scrolling while
+                // playing.
                 evt.preventDefault();
                 break;
             case "ArrowDown":
@@ -426,7 +418,7 @@ class Maze {
                         ^E7L-7^FJv
                         |||F7||L-7
                         LJLJvvL--W
-        `
+        `;
         // The maze as a 2D array
         this.maze = this.parseMazeStr(this.mazeStr);
 
@@ -814,6 +806,8 @@ class Rect {
 
 // Sleep for some milliseconds
 // https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep?page=1&tab=votes#tab-top
+// Use promises to set a timeout. When called, this function should be
+// "await"ed to ensure that the sleep actually happens.
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
