@@ -1,4 +1,5 @@
 /* jshint esversion: 8 */
+/* jslint bitwise: true */
 
 window.addEventListener("load", main);
 
@@ -465,115 +466,6 @@ class Maze {
 
         return maze;
     }
-
-    // Draw the room at (x,y) in maze
-    draw(x, y) {
-        // Get the context
-        let ctx = document.getElementById(this.mazeId).getContext("2d");
-
-        // Draw the base room
-        drawBase(ctx);
-
-        // DEBUG: draw room symbol
-        ctx.font = "40px sans-serif";
-        ctx.fillStyle = "white";
-        ctx.fillText(this.maze[y][x], 0, 30);
-        ctx.fillStyle = "black";
-
-        // Draw the correct room
-        switch (this.maze[y][x]) {
-            case "-":
-                drawLeftHall(ctx);
-                drawUpSeal(ctx);
-                drawRightHall(ctx);
-                drawDownSeal(ctx);
-				break;
-			case "|":
-                drawLeftSeal(ctx);
-                drawUpHall(ctx);
-                drawRightSeal(ctx);
-                drawDownHall(ctx);
-				break;
-			case "<":
-                drawLeftSeal(ctx);
-                drawUpSeal(ctx);
-                drawRightHall(ctx);
-                drawDownSeal(ctx);
-				break;
-			case ">":
-                drawLeftHall(ctx);
-                drawUpSeal(ctx);
-                drawRightSeal(ctx);
-                drawDownSeal(ctx);
-				break;
-			case "v":
-                drawLeftSeal(ctx);
-                drawUpHall(ctx);
-                drawRightSeal(ctx);
-                drawDownSeal(ctx);
-				break;
-			case "^":
-                drawLeftSeal(ctx);
-                drawUpSeal(ctx);
-                drawRightSeal(ctx);
-                drawDownHall(ctx);
-				break;
-			case "+":
-                drawLeftHall(ctx);
-                drawUpHall(ctx);
-                drawRightHall(ctx);
-                drawDownHall(ctx);
-				break;
-			case "L":
-                drawLeftSeal(ctx);
-                drawUpHall(ctx);
-                drawRightHall(ctx);
-                drawDownSeal(ctx);
-				break;
-			case "7":
-                drawLeftHall(ctx);
-                drawUpSeal(ctx);
-                drawRightSeal(ctx);
-                drawDownHall(ctx);
-				break;
-			case "F":
-                drawLeftSeal(ctx);
-                drawUpSeal(ctx);
-                drawRightHall(ctx);
-                drawDownHall(ctx);
-				break;
-			case "J":
-                drawLeftHall(ctx);
-                drawUpHall(ctx);
-                drawRightSeal(ctx);
-                drawDownSeal(ctx);
-				break;
-			case "M":
-                drawLeftHall(ctx);
-                drawUpSeal(ctx);
-                drawRightHall(ctx);
-                drawDownHall(ctx);
-				break;
-			case "W":
-                drawLeftHall(ctx);
-                drawUpHall(ctx);
-                drawRightHall(ctx);
-                drawDownSeal(ctx);
-				break;
-			case "E":
-                drawLeftSeal(ctx);
-                drawUpHall(ctx);
-                drawRightHall(ctx);
-                drawDownHall(ctx);
-				break;
-			case "3":
-                drawLeftHall(ctx);
-                drawUpHall(ctx);
-                drawRightSeal(ctx);
-                drawDownHall(ctx);
-				break;
-        }
-    }
 }
 
 class Room {
@@ -682,8 +574,6 @@ class Room {
 
     // Draw the current room
     draw() {
-        let ctx = document.getElementById(this.mazeId).getContext("2d");
-        
         for (let rect of this.rects) {
             rect.draw();
         }
