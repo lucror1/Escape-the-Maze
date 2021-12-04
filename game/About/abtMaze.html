@@ -26,31 +26,51 @@
   <p class="center">
     <img src="programFlow.svg" alt="A flow diagram of the code's classes and functions." id="flow">
   </p>
-  <h3>errors we encountered:</h3>
-
+  <p>
+    The program can be split into two mostly distinct parts: the player
+    and the level manager. The level manager is responsible for saving,
+    loading, and setting the global position, as well as keeping track of
+    what room the current position corresponds to. The global position is
+    tracked using cookies, while the maze is generated from a maze string
+    written in symbols we made for this project. The specific room is
+    generated using this symbol and is stored by the level manager. A room
+    is in turn defined as many rectangles, which can be drawn and collided
+    with. The player is responsible for its position within a room, as
+    well as figuring out when to request a room transition. It manages
+    input using a custom input class, which stores the keys pressed as a
+    4-bit number. The player also stores a reference to the level manager
+    so it can request a transition.
+  </p>
 
   <h2>How we built the sprites</h2>
-    <p>Hudson did the javascript design of rooms and the player sprite.</p>
+    <p>
+      Hudson selected the initial test sprite and designed the final
+      player sprite. He was also responsible for writing code that drew
+      the rooms onto the screen using lines. Later he converted that code
+      to use rectangles, as shown in the final game.
+    </p>
   <h2>Errors encounters and how we fixed them</h2>
 
-  <p>
-    In earlier versions of the game, rooms were drawn with lines. A
-    missing "ctx.beginPath()" call resulted in the lines being drawn
-    increasing exponentially, dragging down frame rates and resulting in
-    old rooms being drawn on top of new rooms.
-  </p>
-  <p>
-    After collision was implemented, the player could clip through the
-    bottom or top walls if there was a hallway by aligning themselves
-    exactly with the edge of the wall. This was fixed by switching the
-    inequalities from "&gt;" and "&lt;" to "&gt;=" and "&lt;=".
-  </p>
-  <p>
-    The level manager did not properly check if the player was attempting to
-    move outside of the maze. This resulted in the player walking off screen
-    and the level manager saving the now-invalid permission, then
-    immediately crashing and permanently softlocking the game.
-  </p>
+  <ul>
+    <li>
+      In earlier versions of the game, rooms were drawn with lines. A
+      missing "ctx.beginPath()" call resulted in old lines being draw
+      after a room transition, dragging down frame rates and resulting in
+      old rooms being drawn on top of new rooms.
+    </li>
+    <li>
+      After collision was implemented, the player could clip through the
+      bottom or top walls if there was a hallway by aligning themselves
+      exactly with the edge of the wall. This was fixed by switching the
+      inequalities from "&gt;" and "&lt;" to "&gt;=" and "&lt;=".
+    </li>
+    <li>
+      The level manager did not properly check if the player was attempting to
+      move outside of the maze. This resulted in the player walking off screen
+      and the level manager saving the now-invalid permission, then
+      immediately crashing and permanently softlocking the game.
+    </li>
+  </ul>
 <h2>How we could expand it</h2>
   <ul>
     <li>We thought of having a key system where 5 keys spread out across the maze must be collected before the escape opens.</li>
